@@ -1,22 +1,7 @@
 import { useState } from "react";
-
-function Button() {
-  const [value, setValue] = useState("");
-
-  function handleOnClick() {
-    setValue("X");
-  }
-
-  return (
-    <button className="square" onClick={handleOnClick}>
-      {value}
-    </button>
-  );
-}
+import Button from "./components/Button";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="board">
       <Button />
