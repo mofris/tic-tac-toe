@@ -28,3 +28,7 @@ body {
   flex-wrap: wrap;
   width: 270px;
 }
+
+.status {
+  margin-bottom: 10px;
+}
