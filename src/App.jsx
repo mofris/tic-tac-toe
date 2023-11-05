@@ -17,9 +17,9 @@ function App() {
   const winner = calculateWinner(square);
   let status = "";
   if (winner) {
-    status = "Winner :" + winner;
+    status = "Winner : " + winner;
   } else {
-    status = "Next Player :" + (xIsNext ? "X" : "O");
+    status = "Next Player : " + (xIsNext ? "X" : "O");
   }
 
   return (
