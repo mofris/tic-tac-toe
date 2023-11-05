@@ -3,11 +3,15 @@ import Button from "./components/Button";
 
 function App() {
   const [square, setSquare] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
 
   function handleClick(i) {
+    if (square[i]) return;
+
     const nextSquare = square.slice();
-    nextSquare[i] = "X";
+    nextSquare[i] = xIsNext ? "X" : "O";
     setSquare(nextSquare);
+    setXIsNext(!xIsNext);
   }
 
   return (
