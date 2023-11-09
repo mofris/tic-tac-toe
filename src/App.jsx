@@ -1,17 +1,14 @@
 import { useState } from "react";
 import Button from "./components/Button";
 
-function App() {
-  const [square, setSquare] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
-
+function Board({ xIsNext, square, onPlay }) {
   function handleClick(i) {
     if (square[i] || calculateWinner(square)) return;
 
     const nextSquare = square.slice();
     nextSquare[i] = xIsNext ? "X" : "O";
-    setSquare(nextSquare);
-    setXIsNext(!xIsNext);
+
+    onPlay(nextSquare);
   }
 
   const winner = calculateWinner(square);
@@ -64,4 +61,43 @@ function calculateWinner(square) {
   return false;
 }
 
-export default App;
+export default function App() {
+  // membuat x jalan duluan
+  const [xIsNext, setXIsNext] = useState(true);
+  // membuat histori
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  // mengambil array terakhir
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquare) {
+    setHistory([...history, nextSquare]);
+    setXIsNext(!xIsNext);
+  }
+
+  const moves = history.map((squares, move) => {
+    let desc = "";
+    if (move > 0) {
+      desc = "Go to move #" + move;
+    } else {
+      desc = "Go to Game Start";
+    }
+
+    return (
+      <li key={move}>
+        <button className="map">{desc}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} square={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <h2>Road Map</h2>
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+}
