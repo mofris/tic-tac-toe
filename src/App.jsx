@@ -66,11 +66,20 @@ export default function App() {
   const [xIsNext, setXIsNext] = useState(true);
   // membuat histori
   const [history, setHistory] = useState([Array(9).fill(null)]);
+  //menentukan mau loncat kemana
+  const [currentMove, setCurrentMove] = useState(0);
   // mengambil array terakhir
-  const currentSquares = history[history.length - 1];
+  const currentSquares = history[currentMove];
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
 
   function handlePlay(nextSquare) {
-    setHistory([...history, nextSquare]);
+    const newHistori = [...history.slice(0, currentMove + 1), nextSquare];
+    setHistory(newHistori);
+    setCurrentMove(newHistori.length - 1);
     setXIsNext(!xIsNext);
   }
 
@@ -84,7 +93,9 @@ export default function App() {
 
     return (
       <li key={move}>
-        <button className="map">{desc}</button>
+        <button className="map" onClick={() => jumpTo(move)}>
+          {desc}
+        </button>
       </li>
     );
   });
