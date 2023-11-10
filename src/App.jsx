@@ -95,7 +95,7 @@ export default function App() {
         <Board xIsNext={xIsNext} square={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <h2>Road Map</h2>
+        <h2>History</h2>
         <ol>{moves}</ol>
       </div>
     </div>
