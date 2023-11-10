@@ -62,8 +62,6 @@ function calculateWinner(square) {
 }
 
 export default function App() {
-  // membuat x jalan duluan
-  const [xIsNext, setXIsNext] = useState(true);
   // membuat histori
   const [history, setHistory] = useState([Array(9).fill(null)]);
   //menentukan mau loncat kemana
@@ -71,16 +69,16 @@ export default function App() {
   // mengambil array terakhir
   const currentSquares = history[currentMove];
 
+  const xIsNext = currentMove % 2 === 0;
+
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
-    setXIsNext(nextMove % 2 === 0);
   }
 
   function handlePlay(nextSquare) {
     const newHistori = [...history.slice(0, currentMove + 1), nextSquare];
     setHistory(newHistori);
     setCurrentMove(newHistori.length - 1);
-    setXIsNext(!xIsNext);
   }
 
   const moves = history.map((squares, move) => {
